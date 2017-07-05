@@ -29,7 +29,7 @@ def simple_match(m,n):          #m为模式串，n为目标串
     if count == 1:
         print('No match for %s in %s\n' % (m,n))
 
-def KMP(m,n):               #m为模式串，n为目标串
+def KMP(m,n):               #m为模式串，n为目标串  主算法
     next[] = get_next(m)
     m1, n1 = len(m), len(n)
     i, j = 0, 0
@@ -38,6 +38,18 @@ def KMP(m,n):               #m为模式串，n为目标串
             i += 1
             j += 1
         else:
+            i = i-next[i-1]
+
+def get_next(m):            #构造next[]
+    i, k, m = 0, -1, lem(m)
+    next[] = -1 * m
+    while i < m - 1:
+        if k == -1 or p[i] == p [k]:
+            i, k = i + 1, k + 1
+            next[i] = K
+        else:
+            k = next[k]
+    return next
             
 if __name__ == '__main__':
     n = 'qwesfxasefaefaf'
