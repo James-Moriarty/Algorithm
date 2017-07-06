@@ -29,14 +29,14 @@ def simple_match(m,n):          #m为模式串，n为目标串
     if count == 1:
         print('No match for %s in %s\n' % (m,n))
 
-def KMP_Match(subject,n):               #m为模式串，n为目标串  主算法
+def KMP_Match(subject,object):               #m为模式串，n为目标串  主算法
     next = get_next(subject)
-    m1, n1 = len(subject), len(n)
+    m1, n1 = len(subject), len(object)
     i = 0
-    for j in range(1,n1):
-        while subject[i] != n[j]:       #如果不相等，
+    for j in range(n1):
+        while subject[i] != object[j]:       #如果不相等，
             i = next[i - 1]
-        if subject[i] == n[j]:
+        if subject[i] == object[j]:
             i += 1 
         if i == m1:
             print(j - i + 1)
@@ -44,13 +44,13 @@ def KMP_Match(subject,n):               #m为模式串，n为目标串  主算�
             #return True
     return False
 
-def get_next(m):            #构造next[]
-    k, m1 = 0, len(m)
+def get_next(subject):            #构造next[]
+    k, m1 = 0, len(subject)
     next = [0] * m1
     for i in range(1,m1):
-        while k > 0 and m[i] != m[k]:   #i位置与k位置不相等
+        while k > 0 and subject[i] != subject[k]:   #i位置与k位置不相等
             k = next[k-1]               #将k=next[k]，转去考虑前一个更短的保证匹配的前缀
-        if  m[i] == m[k]:
+        if subject[i] == subject[k]:
             k = k + 1                   #若匹配则将k+1，即向前走一位
         next[i] = k
     return next
