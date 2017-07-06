@@ -29,33 +29,41 @@ def simple_match(m,n):          #m为模式串，n为目标串
     if count == 1:
         print('No match for %s in %s\n' % (m,n))
 
-def KMP(m,n):               #m为模式串，n为目标串  主算法
-    next[] = get_next(m)
-    m1, n1 = len(m), len(n)
-    i, j = 0, 0
-    while j <= n1 - m1:
-        if m[i] == n[j]:
-            i += 1
-            j += 1
-        else:
-            i = i-next[i-1]
+def KMP_Match(subject,n):               #m为模式串，n为目标串  主算法
+    next = get_next(subject)
+    m1, n1 = len(subject), len(n)
+    i = 0
+    for j in range(1,n1):
+        while subject[i] != n[j]:       #如果不相等，
+            i = next[i - 1]
+        if subject[i] == n[j]:
+            i += 1 
+        if i == m1:
+            print(j - i + 1)
+            i = 0               #find all match
+            #return True
+    return False
 
 def get_next(m):            #构造next[]
-    i, k, m = 0, -1, lem(m)
-    next[] = -1 * m
-    while i < m - 1:
-        if k == -1 or p[i] == p [k]:
-            i, k = i + 1, k + 1
-            next[i] = K
-        else:
-            k = next[k]
+    k, m1 = 0, len(m)
+    next = [0] * m1
+    for i in range(1,m1):
+        while k > 0 and m[i] != m[k]:   #i位置与k位置不相等
+            k = next[k-1]               #将k=next[k]，转去考虑前一个更短的保证匹配的前缀
+        if  m[i] == m[k]:
+            k = k + 1                   #若匹配则将k+1，即向前走一位
+        next[i] = k
     return next
             
 if __name__ == '__main__':
-    n = 'qwesfxasefaefaf'
-    m = 'fxa'
+    n = 'abbcabcaabbcaa'
+    m = 'bcaa'
     p = 'fa'
     o = 'fxs'
     simple_match(m,n)
-    simple_match(p,n)
-    simple_match(o,n)
+    #simple_match(p,n)
+    #simple_match(o,n)
+    next1 = get_next('abbcabcaabbcaa')
+    #[0, 0, 0, 0, 1, 2, 0, 1, 1, 2, 3, 4, 5, 1]
+    print(next1)
+    KMP_Match(m,n)
