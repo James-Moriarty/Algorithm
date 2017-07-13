@@ -1,3 +1,9 @@
+'''
+    栈的实现，采用顺序表实现，名字quene但实际为栈的实现
+    由于之后的应用中
+'''
+
+
 class StackUnderFlow(ValueError):
     pass
 
