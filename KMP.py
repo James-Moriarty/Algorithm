@@ -60,10 +60,11 @@ if __name__ == '__main__':
     m = 'bcaa'
     p = 'fa'
     o = 'fxs'
-    simple_match(m,n)
+    #simple_match(m,n)
     #simple_match(p,n)
     #simple_match(o,n)
     next1 = get_next('abbcabcaabbcaa')
+    next2 = get_next('caabcaa')
     #[0, 0, 0, 0, 1, 2, 0, 1, 1, 2, 3, 4, 5, 1]
-    print(next1)
-    KMP_Match(m,n)
+    print(next2)
+    #KMP_Match(m,n)
